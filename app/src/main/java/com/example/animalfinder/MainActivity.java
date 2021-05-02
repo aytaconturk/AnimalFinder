@@ -46,9 +46,19 @@ public class MainActivity extends AppCompatActivity {
     //Three (3) consecutive correct answer will increase level by 1
     private static int levelIncreaseStatus = 0;
 
-    private int[] images = new int[] {R.drawable.cat, R.drawable.dog, R.drawable.elephant, R.drawable.fox, R.drawable.lion};
-    private int[] sounds = new int[] {R.raw.cat, R.raw.dog, R.raw.elephant, R.raw.fox, R.raw.lion};
+    //animal images
+    private int[] images = new int[] {R.drawable.cat, R.drawable.dog, R.drawable.elephant, R.drawable.fox,
+            R.drawable.lion, R.drawable.bird, R.drawable.bat, R.drawable.eagle, R.drawable.bear,
+            R.drawable.camel, R.drawable.chicken, R.drawable.cock, R.drawable.cow, R.drawable.donkey,
+            R.drawable.duck, R.drawable.horse, R.drawable.monkey, R.drawable.sheep, R.drawable.snake,
+            R.drawable.wolf, R.drawable.zebra};
 
+    //animal sounds
+    private int[] sounds = new int[] {R.raw.cat, R.raw.dog, R.raw.elephant, R.raw.fox,
+            R.raw.lion, R.raw.bird, R.raw.bat, R.raw.eagle, R.raw.bear,
+            R.raw.camel, R.raw.chicken, R.raw.cock, R.raw.cow, R.raw.donkey,
+            R.raw.duck, R.raw.horse, R.raw.monkey, R.raw.sheep, R.raw.snake,
+            R.raw.wolf, R.raw.zebra};
 
     public String getResourceNameFromClassByID(int resourceID)
             throws IllegalArgumentException {
@@ -283,6 +293,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 start();
+                int point = 0 + points;
+                System.out.println("points: " + point);
             }
         },3000);
     }
@@ -291,8 +303,15 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent level2 = new Intent(MainActivity.this, Level2Activity.class);
-                startActivity(level2);
+                Intent nextLevel = new Intent(MainActivity.this, Level2Activity.class);
+
+                System.out.println("points: " + points);
+
+                int point = 0 + points;
+
+                //send Total points value to the Next Activity
+                nextLevel.putExtra("TOTAL_POINTS",25);
+                startActivity(nextLevel);
             }
         },3000);
     }
