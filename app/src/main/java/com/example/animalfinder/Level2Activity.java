@@ -1,6 +1,7 @@
 package com.example.animalfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -31,10 +32,7 @@ public class Level2Activity extends AppCompatActivity {
     private final int correctSound = R.raw.correct;
     private final int wrongSound = R.raw.wrong;
     private static String imgName;
-
     private static int points = 15;
-
-
     private static int pointIncrease = 10;
 
     //Three (3) consecutive correct answer will increase level by 1
@@ -59,7 +57,6 @@ public class Level2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level2);
-
 
         getLayoutObjects();
 
@@ -242,76 +239,19 @@ public class Level2Activity extends AppCompatActivity {
     }
 
     public void showMessage1(View view) {
-
-        if (checkAnswer(im_1)){
-            displayToast("Correct!");
-
-            playSound(correctSound, 500);
-
-            points = points + pointIncrease;
-            tv_points.setText(String.valueOf(points));
-
-            levelIncreaseStatus++;
-
-            if(levelIncreaseStatus == 3){
-                nextLevel();
-            }
-            else{
-                makePractice();
-            }
-        }
-
-        else {
-            displayToast("Wrong!!!");
-
-            playSound(wrongSound, 500);
-
-            points = 15;
-            pointIncrease--;
-            levelIncreaseStatus = 0;
-
-            makePractice();
-        }
-
-
+        checkStatus(im_1);
     }
 
     public void showMessage2(View view) {
-
-        if (checkAnswer(im_2)){
-            displayToast("Correct!");
-
-            playSound(correctSound, 500);
-
-            points = points + pointIncrease;
-            tv_points.setText(String.valueOf(points));
-
-            levelIncreaseStatus++;
-
-            if(levelIncreaseStatus == 3){
-                nextLevel();
-            }
-            else{
-                makePractice();
-            }
-        }
-        else {
-            displayToast("Wrong!!!");
-
-            playSound(wrongSound, 500);
-
-            points = 15;
-            pointIncrease--;
-            levelIncreaseStatus = 0;
-
-            makePractice();
-        }
-
+        checkStatus(im_2);
     }
 
     public void showMessage3(View view) {
+        checkStatus(im_3);
+    }
 
-        if (checkAnswer(im_3)){
+    private void checkStatus(ImageView im){
+        if (checkAnswer(im)){
             displayToast("Correct!");
 
             playSound(correctSound, 500);
@@ -333,14 +273,14 @@ public class Level2Activity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 15;
+            points = 75;
             pointIncrease--;
             levelIncreaseStatus = 0;
 
             makePractice();
         }
-
     }
+
 
     private void makePractice(){
         new Handler().postDelayed(new Runnable() {
