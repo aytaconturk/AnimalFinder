@@ -31,20 +31,35 @@ public class Level2Activity extends AppCompatActivity {
     private final int correctSound = R.raw.correct;
     private final int wrongSound = R.raw.wrong;
     private static String imgName;
+
     private static int points = 15;
-    private static int pointIncrease = 8;
+
+
+    private static int pointIncrease = 10;
 
     //Three (3) consecutive correct answer will increase level by 1
     private static int levelIncreaseStatus = 0;
 
-    private int[] images = new int[] {R.drawable.cat, R.drawable.dog, R.drawable.elephant, R.drawable.fox, R.drawable.lion};
-    private int[] sounds = new int[] {R.raw.cat, R.raw.dog, R.raw.elephant, R.raw.fox, R.raw.lion};
+    //animal images
+    private int[] images = new int[] {R.drawable.cat, R.drawable.dog, R.drawable.elephant, R.drawable.fox,
+            R.drawable.lion, R.drawable.bird, R.drawable.bat, R.drawable.eagle, R.drawable.bear,
+            R.drawable.camel, R.drawable.chicken, R.drawable.cock, R.drawable.cow, R.drawable.donkey,
+            R.drawable.duck, R.drawable.horse, R.drawable.monkey, R.drawable.sheep, R.drawable.snake,
+            R.drawable.wolf, R.drawable.zebra};
+
+    //animal sounds
+    private int[] sounds = new int[] {R.raw.cat, R.raw.dog, R.raw.elephant, R.raw.fox,
+            R.raw.lion, R.raw.bird, R.raw.bat, R.raw.eagle, R.raw.bear,
+            R.raw.camel, R.raw.chicken, R.raw.cock, R.raw.cow, R.raw.donkey,
+            R.raw.duck, R.raw.horse, R.raw.monkey, R.raw.sheep, R.raw.snake,
+            R.raw.wolf, R.raw.zebra};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_level2);
+
 
         getLayoutObjects();
 
@@ -55,6 +70,7 @@ public class Level2Activity extends AppCompatActivity {
         // Get the ImageView
         im_1 = findViewById(R.id.imageView1);
         im_2 = findViewById(R.id.imageView2);
+        im_3 = (ImageView) findViewById(R.id.imageView3);
 
         //Get the TextView
         question = findViewById(R.id.tv_question);
@@ -86,6 +102,9 @@ public class Level2Activity extends AppCompatActivity {
             if ((randomImg3 != randomImg1) && (randomImg3 != randomImg2) )
                 break;
         }
+        System.out.println("random 1: " + randomImg1);
+        System.out.println("random 2: " + randomImg2);
+        System.out.println("random 3: " + randomImg3);
 
         imgName = getResourceNameFromClassByID(images[randomImg1]);
         questionText = "Find the " + capitalize(imgName);
@@ -229,7 +248,7 @@ public class Level2Activity extends AppCompatActivity {
 
             playSound(correctSound, 500);
 
-            points = points + 5;
+            points = points + pointIncrease;
             tv_points.setText(String.valueOf(points));
 
             levelIncreaseStatus++;
@@ -247,7 +266,8 @@ public class Level2Activity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 0;
+            points = 15;
+            pointIncrease--;
             levelIncreaseStatus = 0;
 
             makePractice();
@@ -263,7 +283,7 @@ public class Level2Activity extends AppCompatActivity {
 
             playSound(correctSound, 500);
 
-            points = points + 5;
+            points = points + pointIncrease;
             tv_points.setText(String.valueOf(points));
 
             levelIncreaseStatus++;
@@ -280,7 +300,8 @@ public class Level2Activity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 0;
+            points = 15;
+            pointIncrease--;
             levelIncreaseStatus = 0;
 
             makePractice();
@@ -290,12 +311,12 @@ public class Level2Activity extends AppCompatActivity {
 
     public void showMessage3(View view) {
 
-        if (checkAnswer(im_2)){
+        if (checkAnswer(im_3)){
             displayToast("Correct!");
 
             playSound(correctSound, 500);
 
-            points = points + 5;
+            points = points + pointIncrease;
             tv_points.setText(String.valueOf(points));
 
             levelIncreaseStatus++;
@@ -312,7 +333,8 @@ public class Level2Activity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 0;
+            points = 15;
+            pointIncrease--;
             levelIncreaseStatus = 0;
 
             makePractice();
@@ -333,8 +355,12 @@ public class Level2Activity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent level2 = new Intent(Level2Activity.this, Level2Activity.class);
-                startActivity(level2);
+                Intent nextLevel = new Intent(Level2Activity.this, Level3Activity.class);
+
+                //send Total points value to the Next Activity
+                nextLevel.putExtra("TOTAL_POINTS", points);
+
+                startActivity(nextLevel);
             }
         },3000);
     }

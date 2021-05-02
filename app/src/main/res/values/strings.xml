@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">AnimalFinder</string>
-    <string name="dog_message">You choose the Dog.</string>
-    <string name="cat_message">You choose the Cat.</string>
 </resources>
