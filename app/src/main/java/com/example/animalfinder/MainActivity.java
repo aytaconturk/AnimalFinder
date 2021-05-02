@@ -3,6 +3,7 @@ package com.example.animalfinder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -34,12 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private Button speakButton;
     private String questionText;
     private TextView tv_points;
+    private TextView tv_highScore;
     private TextView question;
     private ImageView im_1;
     private ImageView im_2;
     private final int correctSound = R.raw.correct;
     private final int wrongSound = R.raw.wrong;
     private static String imgName;
+    private static int highScore = 0;
     private static int points = 0;
     private static int pointIncrease = 5;
 
@@ -59,6 +62,19 @@ public class MainActivity extends AppCompatActivity {
             R.raw.camel, R.raw.chicken, R.raw.cock, R.raw.cow, R.raw.donkey,
             R.raw.duck, R.raw.horse, R.raw.monkey, R.raw.sheep, R.raw.snake,
             R.raw.wolf, R.raw.zebra};
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        getLayoutObjects();
+
+        tv_highScore.setText(String.valueOf(highScore));
+
+        start();
+    }
 
     public String getResourceNameFromClassByID(int resourceID)
             throws IllegalArgumentException {
@@ -93,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Get points TextView
         tv_points = findViewById(R.id.tv_points);
+
+        //Get high Score points TextView
+        tv_highScore = findViewById(R.id.tv_highScore);
     }
 
     public void start(){
@@ -157,17 +176,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        getLayoutObjects();
-
-        start();
-    }
 
     public void playSound(int resourceID) {
         final MediaPlayer soundMP = MediaPlayer.create(this, resourceID);
@@ -278,13 +286,13 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Intent nextLevel = new Intent(MainActivity.this, Level2Activity.class);
 
-                System.out.println("points: " + points);
+                SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("lastScore", points + highScore);
+                editor.apply();
 
-                int point = 0 + points;
-
-                //send Total points value to the Next Activity
-                nextLevel.putExtra("TOTAL_POINTS",25);
                 startActivity(nextLevel);
+                finish();
             }
         },3000);
     }

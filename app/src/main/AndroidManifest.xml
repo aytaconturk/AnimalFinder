@@ -9,11 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimalFinder">
-        <activity android:name=".Level4Activity" android:label="AnimalFinder Level 4">
-        </activity>
-        <activity android:name=".Level3Activity" android:label="AnimalFinder Level 3"/>
-        <activity android:name=".Level2Activity" android:label="AnimalFinder Level 2"></activity>
-        <activity android:name=".MainActivity" android:label="AnimalFinder Level 1">
+        <activity android:name=".lastActivity"></activity>
+        <activity android:name=".Level5Activity" android:label="AnimalFinder Level 5"/>
+        <activity
+            android:name=".Level4Activity"
+            android:label="AnimalFinder Level 4" />
+        <activity
+            android:name=".Level3Activity"
+            android:label="AnimalFinder Level 3" />
+        <activity
+            android:name=".Level2Activity"
+            android:label="AnimalFinder Level 2" />
+        <activity
+            android:name=".MainActivity"
+            android:label="AnimalFinder Level 1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

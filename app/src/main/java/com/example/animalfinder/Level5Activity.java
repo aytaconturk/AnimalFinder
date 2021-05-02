@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Level4Activity extends AppCompatActivity {
+public class Level5Activity extends AppCompatActivity {
 
     private TextToSpeech T2S;
     private Button speakButton;
@@ -33,6 +33,8 @@ public class Level4Activity extends AppCompatActivity {
     private ImageView im_4;
     private ImageView im_5;
     private ImageView im_6;
+    private ImageView im_7;
+    private ImageView im_8;
     private final int correctSound = R.raw.correct;
     private final int wrongSound = R.raw.wrong;
     private static String imgName;
@@ -61,14 +63,13 @@ public class Level4Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level4);
+        setContentView(R.layout.activity_level5);
 
         getLayoutObjects();
 
         SharedPreferences preferences = getSharedPreferences("PREFS", 0);
         highScore = preferences.getInt("lastScore", 0);
         tv_highScore.setText(String.valueOf(highScore));
-
 
         start();
     }
@@ -81,6 +82,8 @@ public class Level4Activity extends AppCompatActivity {
         im_4 = findViewById(R.id.imageView4);
         im_5 = findViewById(R.id.imageView5);
         im_6 = findViewById(R.id.imageView6);
+        im_7 = findViewById(R.id.imageView7);
+        im_8 = findViewById(R.id.imageView8);
 
         //Get the TextView
         question = findViewById(R.id.tv_question);
@@ -98,7 +101,7 @@ public class Level4Activity extends AppCompatActivity {
     public void start(){
 
         // Get a random between 0 and images.length-1
-        int randomImg1, randomImg2, randomImg3, randomImg4, randomImg5, randomImg6;
+        int randomImg1, randomImg2, randomImg3, randomImg4, randomImg5, randomImg6, randomImg7, randomImg8;
         randomImg1 = (int)(Math.random() * images.length);
 
 
@@ -132,13 +135,25 @@ public class Level4Activity extends AppCompatActivity {
                 break;
         }
 
+        while (true) {
+            randomImg7 = (int)(Math.random() * images.length);
+            if ((randomImg7 != randomImg1) && (randomImg7 != randomImg2) && (randomImg7 != randomImg3) && (randomImg7 != randomImg4) && (randomImg7 != randomImg5) && (randomImg7 != randomImg6))
+                break;
+        }
+
+        while (true) {
+            randomImg8 = (int)(Math.random() * images.length);
+            if ((randomImg8 != randomImg1) && (randomImg8 != randomImg2) && (randomImg8 != randomImg3) && (randomImg8 != randomImg4) && (randomImg8 != randomImg5) && (randomImg8 != randomImg6)  && (randomImg8 != randomImg7))
+                break;
+        }
+
         imgName = getResourceNameFromClassByID(images[randomImg1]);
         questionText = "Find the " + capitalize(imgName);
 
         //Set the question
         question.setText(questionText);
 
-        int random = (int)(Math.random() * 6);
+        int random = (int)(Math.random() * 8);
 
         if(random == 0){
             // Set the images
@@ -148,6 +163,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setBackgroundResource(images[randomImg4]);
             im_5.setBackgroundResource(images[randomImg5]);
             im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg8]);
 
             im_1.setTag(images[randomImg1]);
             im_2.setTag(images[randomImg2]);
@@ -155,6 +172,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setTag(images[randomImg4]);
             im_5.setTag(images[randomImg5]);
             im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg8]);
         }
         else if (random == 1) {
             // Set the images
@@ -164,6 +183,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setBackgroundResource(images[randomImg4]);
             im_5.setBackgroundResource(images[randomImg5]);
             im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg8]);
 
             im_1.setTag(images[randomImg2]);
             im_2.setTag(images[randomImg1]);
@@ -171,6 +192,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setTag(images[randomImg4]);
             im_5.setTag(images[randomImg5]);
             im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg8]);
         }
         else if (random == 2) {
             // Set the images
@@ -180,6 +203,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setBackgroundResource(images[randomImg4]);
             im_5.setBackgroundResource(images[randomImg5]);
             im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg8]);
 
             im_1.setTag(images[randomImg3]);
             im_2.setTag(images[randomImg2]);
@@ -187,6 +212,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setTag(images[randomImg4]);
             im_5.setTag(images[randomImg5]);
             im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg8]);
         }
         else if (random == 3) {
             // Set the images
@@ -196,6 +223,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setBackgroundResource(images[randomImg1]);
             im_5.setBackgroundResource(images[randomImg5]);
             im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg8]);
 
             im_1.setTag(images[randomImg4]);
             im_2.setTag(images[randomImg2]);
@@ -203,6 +232,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setTag(images[randomImg1]);
             im_5.setTag(images[randomImg5]);
             im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg8]);
         }
         else if (random == 4) {
             // Set the images
@@ -212,6 +243,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setBackgroundResource(images[randomImg4]);
             im_5.setBackgroundResource(images[randomImg1]);
             im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg8]);
 
             im_1.setTag(images[randomImg5]);
             im_2.setTag(images[randomImg2]);
@@ -219,8 +252,10 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setTag(images[randomImg4]);
             im_5.setTag(images[randomImg1]);
             im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg8]);
         }
-        else {
+        else if(random == 5){
             // Set the images
             im_1.setBackgroundResource(images[randomImg6]);
             im_2.setBackgroundResource(images[randomImg2]);
@@ -228,6 +263,8 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setBackgroundResource(images[randomImg4]);
             im_5.setBackgroundResource(images[randomImg5]);
             im_6.setBackgroundResource(images[randomImg1]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg8]);
 
             im_1.setTag(images[randomImg6]);
             im_2.setTag(images[randomImg2]);
@@ -235,6 +272,48 @@ public class Level4Activity extends AppCompatActivity {
             im_4.setTag(images[randomImg4]);
             im_5.setTag(images[randomImg5]);
             im_6.setTag(images[randomImg1]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg8]);
+        }
+        else if(random == 6){
+            // Set the images
+            im_1.setBackgroundResource(images[randomImg7]);
+            im_2.setBackgroundResource(images[randomImg2]);
+            im_3.setBackgroundResource(images[randomImg3]);
+            im_4.setBackgroundResource(images[randomImg4]);
+            im_5.setBackgroundResource(images[randomImg5]);
+            im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg1]);
+            im_8.setBackgroundResource(images[randomImg8]);
+
+            im_1.setTag(images[randomImg7]);
+            im_2.setTag(images[randomImg2]);
+            im_3.setTag(images[randomImg3]);
+            im_4.setTag(images[randomImg4]);
+            im_5.setTag(images[randomImg5]);
+            im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg1]);
+            im_8.setTag(images[randomImg8]);
+        }
+        else{
+            // Set the images
+            im_1.setBackgroundResource(images[randomImg8]);
+            im_2.setBackgroundResource(images[randomImg2]);
+            im_3.setBackgroundResource(images[randomImg3]);
+            im_4.setBackgroundResource(images[randomImg4]);
+            im_5.setBackgroundResource(images[randomImg5]);
+            im_6.setBackgroundResource(images[randomImg6]);
+            im_7.setBackgroundResource(images[randomImg7]);
+            im_8.setBackgroundResource(images[randomImg1]);
+
+            im_1.setTag(images[randomImg8]);
+            im_2.setTag(images[randomImg2]);
+            im_3.setTag(images[randomImg3]);
+            im_4.setTag(images[randomImg4]);
+            im_5.setTag(images[randomImg5]);
+            im_6.setTag(images[randomImg6]);
+            im_7.setTag(images[randomImg7]);
+            im_8.setTag(images[randomImg1]);
         }
 
         // print Total point of the gamer
@@ -346,7 +425,7 @@ public class Level4Activity extends AppCompatActivity {
     }
 
     public void showMessage4(View view) {
-       checkStatus(im_4);
+        checkStatus(im_4);
     }
 
     public void showMessage5(View view) {
@@ -355,6 +434,14 @@ public class Level4Activity extends AppCompatActivity {
 
     public void showMessage6(View view) {
         checkStatus(im_6);
+    }
+
+    public void showMessage7(View view) {
+        checkStatus(im_7);
+    }
+
+    public void showMessage8(View view) {
+        checkStatus(im_8);
     }
 
     private void checkStatus(ImageView im){
@@ -380,7 +467,7 @@ public class Level4Activity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 75;
+            points = 120;
             pointIncrease--;
             levelIncreaseStatus = 0;
 
@@ -401,7 +488,7 @@ public class Level4Activity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent nextLevel = new Intent(Level4Activity.this, Level5Activity.class);
+                Intent nextLevel = new Intent(Level5Activity.this, Level5Activity.class);
 
                 SharedPreferences preferences = getSharedPreferences("PREFS", 0);
                 SharedPreferences.Editor editor = preferences.edit();

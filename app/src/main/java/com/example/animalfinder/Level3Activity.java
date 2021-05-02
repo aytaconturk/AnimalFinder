@@ -3,6 +3,7 @@ package com.example.animalfinder;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ public class Level3Activity extends AppCompatActivity {
     private Button speakButton;
     private String questionText;
     private TextView tv_points;
+    private TextView tv_highScore;
     private TextView question;
     private ImageView im_1;
     private ImageView im_2;
@@ -32,7 +34,8 @@ public class Level3Activity extends AppCompatActivity {
     private final int correctSound = R.raw.correct;
     private final int wrongSound = R.raw.wrong;
     private static String imgName;
-    private static int points = 45;
+    private static int highScore = 0;
+    private static int points = 0;
     private static int pointIncrease = 10;
 
     //Three (3) consecutive correct answer will increase level by 1
@@ -60,6 +63,11 @@ public class Level3Activity extends AppCompatActivity {
 
         getLayoutObjects();
 
+
+        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+        highScore = preferences.getInt("lastScore", 0);
+        tv_highScore.setText(String.valueOf(highScore));
+
         start();
     }
 
@@ -78,6 +86,9 @@ public class Level3Activity extends AppCompatActivity {
 
         //Get points TextView
         tv_points = findViewById(R.id.tv_points);
+
+        //Get high Score points TextView
+        tv_highScore = findViewById(R.id.tv_highScore);
     }
 
     public void start(){
@@ -300,7 +311,7 @@ public class Level3Activity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 75;
+            points = 0;
             pointIncrease--;
             levelIncreaseStatus = 0;
 
@@ -324,10 +335,13 @@ public class Level3Activity extends AppCompatActivity {
             public void run() {
                 Intent nextLevel = new Intent(Level3Activity.this, Level4Activity.class);
 
-                //send Total points value to the Next Activity
-                nextLevel.putExtra("TOTAL_POINTS", points);
+                SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("lastScore", points + highScore);
+                editor.apply();
 
                 startActivity(nextLevel);
+                finish();
             }
         },3000);
     }
