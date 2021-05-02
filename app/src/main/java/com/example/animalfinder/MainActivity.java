@@ -222,42 +222,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showMessage1(View view) {
-
-        if (checkAnswer(im_1)){
-            displayToast("Correct!");
-
-            playSound(correctSound, 500);
-
-            points = points + pointIncrease;
-            tv_points.setText(String.valueOf(points));
-
-            levelIncreaseStatus++;
-
-            if(levelIncreaseStatus == 3){
-                nextLevel();
-            }
-            else{
-                makePractice();
-            }
-        }
-        else {
-            displayToast("Wrong!!!");
-
-            playSound(wrongSound, 500);
-
-            points = 0;
-            pointIncrease--;
-            levelIncreaseStatus = 0;
-
-            makePractice();
-        }
-
-
+        checkStatus(im_1);
     }
 
     public void showMessage2(View view) {
+        checkStatus(im_2);
+    }
 
-        if (checkAnswer(im_2)){
+    private void checkStatus(ImageView im){
+        if (checkAnswer(im)){
             displayToast("Correct!");
 
             playSound(correctSound, 500);
@@ -279,14 +252,14 @@ public class MainActivity extends AppCompatActivity {
 
             playSound(wrongSound, 500);
 
-            points = 0;
+            points = 75;
             pointIncrease--;
             levelIncreaseStatus = 0;
 
             makePractice();
         }
-
     }
+
 
     private void makePractice(){
         new Handler().postDelayed(new Runnable() {
