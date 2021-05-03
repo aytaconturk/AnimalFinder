@@ -488,7 +488,7 @@ public class Level5Activity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent nextLevel = new Intent(Level5Activity.this, Level5Activity.class);
+                Intent nextLevel = new Intent(Level5Activity.this, lastActivity.class);
 
                 SharedPreferences preferences = getSharedPreferences("PREFS", 0);
                 SharedPreferences.Editor editor = preferences.edit();
